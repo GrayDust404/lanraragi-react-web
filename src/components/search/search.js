@@ -37,18 +37,26 @@ export const Search = ({ display, loading, controller }) => {
 
   const callNewArchives = useCallback(
     async ({ filter, category, sortby, order }) => {
+      const maxPerPage = maxArchivesBreakpoints[breakpoint];
+      const start = (searchPage - 1) * maxPerPage;
+      
       const searchObject = {
         filter,
         sortby,
         order,
-        start: -1,
+        start,
+        length: maxPerPage,
         ...(category && { category }),
       };
-      const arcs = await getArchivesBySearch(searchObject);
-      dispatch(updateSearchArchives(arcs));
+      
+      const response = await getArchivesBySearch(searchObject);
+      dispatch(updateSearchArchives({
+        archives: response.data,
+        total: response.recordsFiltered
+      }));
       dispatch(updateLoading({ search: false }));
     },
-    []
+    [searchPage, breakpoint]
   );
 
   useEffect(() => {
@@ -70,6 +78,8 @@ export const Search = ({ display, loading, controller }) => {
     searchSortBy,
     searchOrder,
     searchCategory,
+    searchPage,
+    breakpoint
   ]);
 
   const header = (
