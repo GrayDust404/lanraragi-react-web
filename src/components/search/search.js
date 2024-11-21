@@ -38,7 +38,7 @@ export const Search = ({ display, loading, controller }) => {
   const callNewArchives = useCallback(
     async ({ filter, category, sortby, order }) => {
       const maxPerPage = maxArchivesBreakpoints[breakpoint];
-      const start = (searchPage - 1) * maxPerPage;
+      const start = Math.max(0, (searchPage - 1) * maxPerPage);
       
       const searchObject = {
         filter,
