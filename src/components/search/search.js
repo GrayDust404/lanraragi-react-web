@@ -29,10 +29,6 @@ export const Search = ({ display, loading, controller }) => {
   const searchOrder = useSelector(getSearchSortDirection);
   const searchCategory = useSelector(getSearchCategory)?.id;
   const maxArchivesBreakpoints = getNumArchivesToRender();
-  const sliceToRender = [
-    searchPage > 1 ? (searchPage - 1) * maxArchivesBreakpoints[breakpoint] : 0,
-    maxArchivesBreakpoints[breakpoint] * searchPage,
-  ];
   const archivesLoading = isSearchLoading || onLoadSearch;
 
   const callNewArchives = useCallback(
@@ -95,7 +91,6 @@ export const Search = ({ display, loading, controller }) => {
     <ArchiveList
       display={display}
       archives={searchArchives}
-      sliceToRender={sliceToRender}
       isSearch
       archivesLoading={archivesLoading}
       loadingLabel="Getting archives from search"
