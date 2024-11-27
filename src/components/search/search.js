@@ -64,21 +64,13 @@ export const Search = ({ display, loading, controller }) => {
   }, [loading, isSearchLoading, controller]);
 
   useEffect(() => {
-    if (isSearchLoading && !onLoadSearch) {
-      const shouldSearch = usePaginatedSearch || 
-        searchFilter !== prevFilter || 
-        searchSortBy !== prevSortBy || 
-        searchOrder !== prevOrder || 
-        searchCategory !== prevCategory;
-
-      if (shouldSearch) {
-        callNewArchives({
-          filter: searchFilter,
-          sortby: searchSortBy,
-          order: searchOrder,
-          category: searchCategory,
-        });
-      }
+    if ((isSearchLoading && !onLoadSearch) || !usePaginatedSearch) {
+      callNewArchives({
+        filter: searchFilter,
+        sortby: searchSortBy,
+        order: searchOrder,
+        category: searchCategory,
+      });
     }
   }, [
     isSearchLoading,
