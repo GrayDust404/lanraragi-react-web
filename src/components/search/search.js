@@ -64,14 +64,13 @@ export const Search = ({ display, loading, controller }) => {
   }, [loading, isSearchLoading, controller]);
 
   useEffect(() => {
-    if ((isSearchLoading && !onLoadSearch)) {
+    if (isSearchLoading && !onLoadSearch)
       callNewArchives({
         filter: searchFilter,
         sortby: searchSortBy,
         order: searchOrder,
         category: searchCategory,
       });
-    }
   }, [
     isSearchLoading,
     onLoadSearch,

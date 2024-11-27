@@ -14,7 +14,7 @@ const scroll = () => {
     ?.scrollIntoView({ behavior: "smooth" });
 };
 
-export const usePageButtonsLogic = ({ top, scroll }) => {
+export const usePageButtonsLogic = ({ top }) => {
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   const breakpoint = useWidth();
