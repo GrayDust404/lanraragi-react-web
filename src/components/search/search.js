@@ -36,7 +36,7 @@ export const Search = ({ display, loading, controller }) => {
   const callNewArchives = useCallback(
     async ({ filter, category, sortby, order }) => {
       const maxPerPage = maxArchivesBreakpoints[breakpoint];
-      
+
       const searchObject = {
         filter,
         sortby,
@@ -64,7 +64,7 @@ export const Search = ({ display, loading, controller }) => {
   }, [loading, isSearchLoading, controller]);
 
   useEffect(() => {
-    if ((isSearchLoading && !onLoadSearch) || !usePaginatedSearch) {
+    if ((isSearchLoading && !onLoadSearch)) {
       callNewArchives({
         filter: searchFilter,
         sortby: searchSortBy,
@@ -78,10 +78,7 @@ export const Search = ({ display, loading, controller }) => {
     searchFilter,
     searchSortBy,
     searchOrder,
-    searchCategory,
-    searchPage,
-    breakpoint,
-    usePaginatedSearch
+    searchCategory
   ]);
 
   const header = (
