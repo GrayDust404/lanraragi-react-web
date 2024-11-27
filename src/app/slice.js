@@ -40,6 +40,9 @@ const initialState = {
     random: false,
     images: false,
   },
+  settings: {
+    usePaginatedSearch: true,
+  },
 };
 
 export const appSlice = createSlice({
@@ -170,6 +173,9 @@ export const appSlice = createSlice({
     updateTags: (state, { payload }) => {
       state.tags = [...payload];
     },
+    updateSearchPaginationSetting: (state, { payload }) => {
+      state.settings.usePaginatedSearch = payload;
+    },
   },
 });
 
@@ -197,6 +203,7 @@ export const {
   deleteArchiveFromSearchArchives,
   updateTags,
   updateArchiveTags,
+  updateSearchPaginationSetting,
 } = appSlice.actions;
 
 export default appSlice.reducer;

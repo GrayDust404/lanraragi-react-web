@@ -9,6 +9,7 @@ import {
   getSearchPage,
   getSearchSort,
   getSearchSortDirection,
+  getUsePaginatedSearch,
 } from "../../app/selectors";
 import { updateLoading, updateSearchArchives } from "../../app/slice";
 import { ArchiveList } from "../archive-list/archive-list";
@@ -30,18 +31,23 @@ export const Search = ({ display, loading, controller }) => {
   const searchCategory = useSelector(getSearchCategory)?.id;
   const maxArchivesBreakpoints = getNumArchivesToRender();
   const archivesLoading = isSearchLoading || onLoadSearch;
+  const usePaginatedSearch = useSelector(getUsePaginatedSearch);
 
   const callNewArchives = useCallback(
     async ({ filter, category, sortby, order }) => {
       const maxPerPage = maxArchivesBreakpoints[breakpoint];
-      const start = Math.max(0, (searchPage - 1) * maxPerPage);
+      const start = usePaginatedSearch 
+        ? Math.max(0, (searchPage - 1) * maxPerPage)
+        : -1;
       
       const searchObject = {
         filter,
         sortby,
         order,
-        start,
-        length: maxPerPage,
+        ...(usePaginatedSearch && {
+          start,
+          length: maxPerPage,
+        }),
         ...(category && { category }),
       };
       
@@ -52,7 +58,7 @@ export const Search = ({ display, loading, controller }) => {
       }));
       dispatch(updateLoading({ search: false }));
     },
-    [searchPage, breakpoint]
+    [searchPage, breakpoint, usePaginatedSearch]
   );
 
   useEffect(() => {
@@ -91,6 +97,10 @@ export const Search = ({ display, loading, controller }) => {
     <ArchiveList
       display={display}
       archives={searchArchives}
+      sliceToRender={!usePaginatedSearch ? [
+        (searchPage - 1) * maxArchivesBreakpoints[breakpoint],
+        searchPage * maxArchivesBreakpoints[breakpoint]
+      ] : [0, null]}
       isSearch
       archivesLoading={archivesLoading}
       loadingLabel="Getting archives from search"
