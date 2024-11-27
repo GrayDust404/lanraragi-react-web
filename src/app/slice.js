@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getNewSearchArchivesArrayAfterDeletingArchiveId } from "../utils";
 import { getSearchStats } from "../storage/search";
+import { loadSearchSettings, saveSearchSettings } from '../storage/searchSettings';
 
 const initialState = {
   archiveOpenedFrom: "random",
@@ -41,7 +42,7 @@ const initialState = {
     images: false,
   },
   settings: {
-    usePaginatedSearch: true,
+    usePaginatedSearch: loadSearchSettings(),
   },
 };
 
@@ -175,6 +176,7 @@ export const appSlice = createSlice({
     },
     updateSearchPaginationSetting: (state, { payload }) => {
       state.settings.usePaginatedSearch = payload;
+      saveSearchSettings(payload);
     },
   },
 });
