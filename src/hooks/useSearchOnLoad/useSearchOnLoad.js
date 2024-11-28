@@ -30,6 +30,7 @@ export const useSearchOnLoad = () => {
   const [loading, setLoading] = useState(false);
   const [searchFilter, setSearchFilter] = useState(null);
   const [controller] = useState(new AbortController());
+  const [searchLoaded, setSearchLoaded] = useState(false);
 
   const results = { 
     results: searchArchives, 
@@ -73,15 +74,16 @@ export const useSearchOnLoad = () => {
 
   useEffect(() => {
     if (
-      !searchTotal &&  // 改为检查总数而不是当前页的结果
+      !searchLoaded && 
       randomArchives.length &&
       !loading &&
       searchFilter !== filter
     ) {
       callNewArchives(filter);
       setSearchFilter(filter);
+      setSearchLoaded(true); 
     }
-  }, [searchTotal, randomArchives, loading, searchFilter, filter]);
+  }, [searchLoaded, randomArchives, loading, searchFilter, filter]);
 
   return results;
 };
