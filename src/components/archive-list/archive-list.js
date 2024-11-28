@@ -9,6 +9,7 @@ import { updateInfoDialogArchiveId } from "../../app/slice";
 import { getNumArchivePerRow } from "../../storage/archives";
 import { Loading } from "../loading/loading";
 import { ArchiveEditDialog } from "../dialogs/archive-edit-dialog/archive-edit-dialog";
+import { ArchiveRatingDialog } from "../dialogs/archive-rating-dialog/archive-rating-dialog";
 
 export const ArchiveList = ({
   archives = [],
