@@ -18,13 +18,13 @@ export const getCurrentRandomArchives = createSelector(getApp, (app) => [
 ]);
 
 export const getCurrentSearchArchives = createSelector(
-  getApp, 
-  (app) => [...app.searchArchives.archives]
+  getApp,
+  (app) => app.searchArchives
 );
 
 export const getSearchArchivesTotal = createSelector(
   getApp,
-  (app) => app.searchArchives.total
+  (app) => app.searchTotal
 );
 
 export const getRandomAndSearchArchives = createSelector(
@@ -37,11 +37,6 @@ export const getCurrentArchiveFromRandomAndResults = createSelector(
   getCurrentArchiveId,
   getRandomAndSearchArchives,
   (arcId, archives) => archives.find((arc) => arc.arcid === arcId) ?? {}
-);
-
-export const getAmountOfSearchArchives = createSelector(
-  getSearchArchivesTotal,
-  (total) => total
 );
 
 export const getCurrentArciveRandomArchivesIndex = createSelector(
