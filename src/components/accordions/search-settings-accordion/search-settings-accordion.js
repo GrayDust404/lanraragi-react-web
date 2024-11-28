@@ -2,11 +2,11 @@ import React from "react";
 import { Switch, FormControlLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsePaginatedSearch } from "../../../app/selectors";
-import { 
-  updateSearchPaginationSetting, 
+import {
+  updateSearchPaginationSetting,
   updateLoading,
   updateSearchArchives,
-  updateSearchPage 
+  updateSearchPage
 } from "../../../app/slice";
 import { BaseAccordion } from "../base-accordion";
 
@@ -24,14 +24,14 @@ export const SearchSettingsAccordion = () => {
   return (
     <BaseAccordion title="Search Settings">
       <FormControlLabel
-        control={
+        control={(
           <Switch
             checked={usePaginatedSearch}
             onChange={handlePaginationChange}
           />
-        }
+        )}
         label="Use server-side pagination for search results"
       />
     </BaseAccordion>
   );
-}; 
+};
